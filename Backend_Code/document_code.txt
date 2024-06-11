@@ -1,0 +1,1197 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "9987c097",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "import pandas as pd\n",
+    "import matplotlib.pyplot as plt\n",
+    "%matplotlib inline\n",
+    "import seaborn as sns"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "c6099dba",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "C:\\Users\\saira\\Documents\\Giet_College\\CONFIRMED\\Bitcoin\\Source_Code\\archive (13)\\Source_Code\n"
+     ]
+    }
+   ],
+   "source": [
+    "cd .."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "7d9831f6",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df=pd.read_csv('dataset/Bitcoin.csv')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "6944fd70",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Date</th>\n",
+       "      <th>Price</th>\n",
+       "      <th>Open</th>\n",
+       "      <th>High</th>\n",
+       "      <th>Low</th>\n",
+       "      <th>Vol.</th>\n",
+       "      <th>Change %</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Aug 24, 2021</td>\n",
+       "      <td>48,846.3</td>\n",
+       "      <td>49,532.5</td>\n",
+       "      <td>49,847.4</td>\n",
+       "      <td>48,812.4</td>\n",
+       "      <td>59.89K</td>\n",
+       "      <td>-1.40%</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>Aug 23, 2021</td>\n",
+       "      <td>49,539.7</td>\n",
+       "      <td>49,255.4</td>\n",
+       "      <td>50,498.8</td>\n",
+       "      <td>49,038.6</td>\n",
+       "      <td>75.37K</td>\n",
+       "      <td>0.58%</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>Aug 22, 2021</td>\n",
+       "      <td>49,254.5</td>\n",
+       "      <td>48,870.4</td>\n",
+       "      <td>49,480.3</td>\n",
+       "      <td>48,151.0</td>\n",
+       "      <td>49.32K</td>\n",
+       "      <td>0.77%</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>Aug 21, 2021</td>\n",
+       "      <td>48,875.8</td>\n",
+       "      <td>49,330.0</td>\n",
+       "      <td>49,719.1</td>\n",
+       "      <td>48,293.5</td>\n",
+       "      <td>18.20K</td>\n",
+       "      <td>-0.91%</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>Aug 20, 2021</td>\n",
+       "      <td>49,324.0</td>\n",
+       "      <td>46,756.7</td>\n",
+       "      <td>49,343.3</td>\n",
+       "      <td>46,646.8</td>\n",
+       "      <td>83.19K</td>\n",
+       "      <td>5.49%</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "           Date     Price      Open      High       Low    Vol. Change %\n",
+       "0  Aug 24, 2021  48,846.3  49,532.5  49,847.4  48,812.4  59.89K   -1.40%\n",
+       "1  Aug 23, 2021  49,539.7  49,255.4  50,498.8  49,038.6  75.37K    0.58%\n",
+       "2  Aug 22, 2021  49,254.5  48,870.4  49,480.3  48,151.0  49.32K    0.77%\n",
+       "3  Aug 21, 2021  48,875.8  49,330.0  49,719.1  48,293.5  18.20K   -0.91%\n",
+       "4  Aug 20, 2021  49,324.0  46,756.7  49,343.3  46,646.8  83.19K    5.49%"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "f87c8cc6",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 4056 entries, 0 to 4055\n",
+      "Data columns (total 7 columns):\n",
+      " #   Column    Non-Null Count  Dtype \n",
+      "---  ------    --------------  ----- \n",
+      " 0   Date      4056 non-null   object\n",
+      " 1   Price     4056 non-null   object\n",
+      " 2   Open      4056 non-null   object\n",
+      " 3   High      4056 non-null   object\n",
+      " 4   Low       4056 non-null   object\n",
+      " 5   Vol.      4056 non-null   object\n",
+      " 6   Change %  4056 non-null   object\n",
+      "dtypes: object(7)\n",
+      "memory usage: 221.9+ KB\n"
+     ]
+    }
+   ],
+   "source": [
+    "df.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "ad98c361",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Date        0\n",
+       "Price       0\n",
+       "Open        0\n",
+       "High        0\n",
+       "Low         0\n",
+       "Vol.        0\n",
+       "Change %    0\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.isnull().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "6c8210b0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df[\"Date\"] = df[\"Date\"].replace(\",\", \"\", regex=True)\n",
+    "df[\"Date\"] = df[\"Date\"].replace(\" \", \"-\", regex=True)\n",
+    "df[\"Date\"] = df[\"Date\"].replace(\"Jan\", \"01\", regex=True)\n",
+    "df[\"Date\"] = df[\"Date\"].replace(\"Feb\", \"02\", regex=True)\n",
+    "df[\"Date\"] = df[\"Date\"].replace(\"Mar\", \"03\", regex=True)\n",
+    "df[\"Date\"] = df[\"Date\"].replace(\"Apr\", \"04\", regex=True)\n",
+    "df[\"Date\"] = df[\"Date\"].replace(\"May\", \"05\", regex=True)\n",
+    "df[\"Date\"] = df[\"Date\"].replace(\"Jun\", \"06\", regex=True)\n",
+    "df[\"Date\"] = df[\"Date\"].replace(\"Jul\", \"07\", regex=True)\n",
+    "df[\"Date\"] = df[\"Date\"].replace(\"Aug\", \"08\", regex=True)\n",
+    "df[\"Date\"] = df[\"Date\"].replace(\"Sep\", \"09\", regex=True)\n",
+    "df[\"Date\"] = df[\"Date\"].replace(\"Oct\", \"10\", regex=True)\n",
+    "df[\"Date\"] = df[\"Date\"].replace(\"Nov\", \"11\", regex=True)\n",
+    "df[\"Date\"] = df[\"Date\"].replace(\"Dec\", \"12\", regex=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "16cdeee3",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df[\"Price\"] = df[\"Price\"].replace(\",\", \"\", regex=True)\n",
+    "df[\"Open\"] = df[\"Open\"].replace(\",\", \"\", regex=True)\n",
+    "df[\"High\"] = df[\"High\"].replace(\",\", \"\", regex=True)\n",
+    "df[\"Low\"] = df[\"Low\"].replace(\",\", \"\", regex=True)\n",
+    "df[\"Change %\"] = df[\"Change %\"].replace(\"%\", \"\", regex=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "2e71f33b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def value_to_float(x):\n",
+    "    if type(x) == float or type(x) == int:\n",
+    "        return x\n",
+    "    if 'K' in x:\n",
+    "        if len(x) > 1:\n",
+    "            return float(x.replace('K', '')) * 1000\n",
+    "        return 1000.0\n",
+    "    if 'M' in x:\n",
+    "        if len(x) > 1:\n",
+    "            return float(x.replace('M', '')) * 1000000\n",
+    "        return 1000000.0\n",
+    "    if 'B' in x:\n",
+    "        return float(x.replace('B', '')) * 1000000000\n",
+    "    return 0.0\n",
+    "\n",
+    "df['Vol.'] = df['Vol.'].apply(value_to_float)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "9d2a1100",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df['Date'] = pd.to_datetime(df[\"Date\"], format='%m-%d-%Y')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "67da8439",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Date</th>\n",
+       "      <th>Price</th>\n",
+       "      <th>Open</th>\n",
+       "      <th>High</th>\n",
+       "      <th>Low</th>\n",
+       "      <th>Vol.</th>\n",
+       "      <th>Change %</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>2021-08-24</td>\n",
+       "      <td>48846.3</td>\n",
+       "      <td>49532.5</td>\n",
+       "      <td>49847.4</td>\n",
+       "      <td>48812.4</td>\n",
+       "      <td>59890.0</td>\n",
+       "      <td>-1.40</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>2021-08-23</td>\n",
+       "      <td>49539.7</td>\n",
+       "      <td>49255.4</td>\n",
+       "      <td>50498.8</td>\n",
+       "      <td>49038.6</td>\n",
+       "      <td>75370.0</td>\n",
+       "      <td>0.58</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>2021-08-22</td>\n",
+       "      <td>49254.5</td>\n",
+       "      <td>48870.4</td>\n",
+       "      <td>49480.3</td>\n",
+       "      <td>48151.0</td>\n",
+       "      <td>49320.0</td>\n",
+       "      <td>0.77</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>2021-08-21</td>\n",
+       "      <td>48875.8</td>\n",
+       "      <td>49330.0</td>\n",
+       "      <td>49719.1</td>\n",
+       "      <td>48293.5</td>\n",
+       "      <td>18200.0</td>\n",
+       "      <td>-0.91</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>2021-08-20</td>\n",
+       "      <td>49324.0</td>\n",
+       "      <td>46756.7</td>\n",
+       "      <td>49343.3</td>\n",
+       "      <td>46646.8</td>\n",
+       "      <td>83190.0</td>\n",
+       "      <td>5.49</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "        Date    Price     Open     High      Low     Vol. Change %\n",
+       "0 2021-08-24  48846.3  49532.5  49847.4  48812.4  59890.0    -1.40\n",
+       "1 2021-08-23  49539.7  49255.4  50498.8  49038.6  75370.0     0.58\n",
+       "2 2021-08-22  49254.5  48870.4  49480.3  48151.0  49320.0     0.77\n",
+       "3 2021-08-21  48875.8  49330.0  49719.1  48293.5  18200.0    -0.91\n",
+       "4 2021-08-20  49324.0  46756.7  49343.3  46646.8  83190.0     5.49"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "d3ead4ca",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df[\"Price\"] = pd.to_numeric(df[\"Price\"], downcast=\"float\")\n",
+    "df[\"Open\"] = pd.to_numeric(df[\"Open\"], downcast=\"float\")\n",
+    "df[\"High\"] = pd.to_numeric(df[\"High\"], downcast=\"float\")\n",
+    "df[\"Low\"] = pd.to_numeric(df[\"Low\"], downcast=\"float\")\n",
+    "df[\"Vol.\"] = pd.to_numeric(df[\"Vol.\"], downcast=\"float\")\n",
+    "df[\"Change %\"] = pd.to_numeric(df[\"Change %\"], downcast=\"float\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "7a4ef820",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 4056 entries, 0 to 4055\n",
+      "Data columns (total 7 columns):\n",
+      " #   Column    Non-Null Count  Dtype         \n",
+      "---  ------    --------------  -----         \n",
+      " 0   Date      4056 non-null   datetime64[ns]\n",
+      " 1   Price     4056 non-null   float32       \n",
+      " 2   Open      4056 non-null   float32       \n",
+      " 3   High      4056 non-null   float32       \n",
+      " 4   Low       4056 non-null   float32       \n",
+      " 5   Vol.      4056 non-null   float32       \n",
+      " 6   Change %  4056 non-null   float32       \n",
+      "dtypes: datetime64[ns](1), float32(6)\n",
+      "memory usage: 126.9 KB\n"
+     ]
+    }
+   ],
+   "source": [
+    "df.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "6cf0dba5",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "plt.style.use('seaborn')\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "519f1b75",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      
+      "text/plain": [
+       "<Figure size 576x396 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "price_date = df['Date']\n",
+    "price_close = df['Price']\n",
+    "plt.plot_date(price_date, price_close, linestyle='solid')\n",
+    "plt.tight_layout()\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "f3e57d79",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+     
+      "text/plain": [
+       "<Figure size 720x360 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "fig = plt.figure(figsize = (10, 5))\n",
+    "plt.plot(df[\"Date\"], df[\"Vol.\"], color ='maroon')\n",
+    "plt.title(\"Trading Volume Chart\")\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "id": "1035d0ec",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ma_day = [50, 200]\n",
+    "\n",
+    "for ma in ma_day:\n",
+    "    column_name = f\"MA for {ma} days\"\n",
+    "    df[column_name] = df['Price'].rolling(ma).mean()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "id": "6898059e",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<matplotlib.legend.Legend at 0x19ee227b670>"
+      ]
+     },
+     "execution_count": 20,
+     "metadata": {},
+     "output_type": "execute_result"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 576x396 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "plt.style.use(\"fivethirtyeight\")\n",
+    "plt.plot(df['Date'],df[['Price', 'MA for 50 days', 'MA for 200 days']])\n",
+    "plt.legend(['Price', 'MA for 50 days', 'MA for 200 days'])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "id": "cfff0410",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<AxesSubplot:>"
+      ]
+     },
+     "execution_count": 21,
+     "metadata": {},
+     "output_type": "execute_result"
+    },
+    {
+     "data": {
+     
+      "text/plain": [
+       "<Figure size 576x396 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "df['Daily Return'] = df['Price'].pct_change()\n",
+    "df['Daily Return'].plot(legend=True, linestyle='--', marker='o')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "345e7f98",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "C:\\Users\\saira\\anaconda3\\lib\\site-packages\\seaborn\\distributions.py:2619: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).\n",
+      "  warnings.warn(msg, FutureWarning)\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "Text(0, 0.5, 'Daily Return')"
+      ]
+     },
+     "execution_count": 22,
+     "metadata": {},
+     "output_type": "execute_result"
+    },
+    {
+     "data": {
+      "image/png":   "text/plain": [
+       "<Figure size 576x396 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "sns.distplot(df['Daily Return'].dropna(), bins=100, color='purple')\n",
+    "plt.ylabel('Daily Return')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "75ae84b7",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": 
+      "text/plain": [
+       "<Figure size 1152x432 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "plt.figure(figsize=(16,6))\n",
+    "plt.title('Close Price History')\n",
+    "plt.plot(df['Price'])\n",
+    "plt.xlabel('Date', fontsize=18)\n",
+    "plt.ylabel('Close Price USD ($)', fontsize=18)\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "id": "2fd490dc",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "new =df['Date'].astype(str).str.split(\"-\", n = 2, expand = True) \n",
+    "df['year']= new[0]\n",
+    "df['month']= new[1]\n",
+    "df['day']= new[2]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "id": "1ca799a1",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Date</th>\n",
+       "      <th>Price</th>\n",
+       "      <th>Open</th>\n",
+       "      <th>High</th>\n",
+       "      <th>Low</th>\n",
+       "      <th>Vol.</th>\n",
+       "      <th>Change %</th>\n",
+       "      <th>MA for 50 days</th>\n",
+       "      <th>MA for 200 days</th>\n",
+       "      <th>Daily Return</th>\n",
+       "      <th>year</th>\n",
+       "      <th>month</th>\n",
+       "      <th>day</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>2021-08-24</td>\n",
+       "      <td>48846.300781</td>\n",
+       "      <td>49532.500000</td>\n",
+       "      <td>49847.398438</td>\n",
+       "      <td>48812.398438</td>\n",
+       "      <td>59890.0</td>\n",
+       "      <td>-1.40</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>2021</td>\n",
+       "      <td>08</td>\n",
+       "      <td>24</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>2021-08-23</td>\n",
+       "      <td>49539.699219</td>\n",
+       "      <td>49255.398438</td>\n",
+       "      <td>50498.800781</td>\n",
+       "      <td>49038.601562</td>\n",
+       "      <td>75370.0</td>\n",
+       "      <td>0.58</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>0.014196</td>\n",
+       "      <td>2021</td>\n",
+       "      <td>08</td>\n",
+       "      <td>23</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>2021-08-22</td>\n",
+       "      <td>49254.500000</td>\n",
+       "      <td>48870.398438</td>\n",
+       "      <td>49480.300781</td>\n",
+       "      <td>48151.000000</td>\n",
+       "      <td>49320.0</td>\n",
+       "      <td>0.77</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>-0.005757</td>\n",
+       "      <td>2021</td>\n",
+       "      <td>08</td>\n",
+       "      <td>22</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>2021-08-21</td>\n",
+       "      <td>48875.800781</td>\n",
+       "      <td>49330.000000</td>\n",
+       "      <td>49719.101562</td>\n",
+       "      <td>48293.500000</td>\n",
+       "      <td>18200.0</td>\n",
+       "      <td>-0.91</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>-0.007689</td>\n",
+       "      <td>2021</td>\n",
+       "      <td>08</td>\n",
+       "      <td>21</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>2021-08-20</td>\n",
+       "      <td>49324.000000</td>\n",
+       "      <td>46756.699219</td>\n",
+       "      <td>49343.300781</td>\n",
+       "      <td>46646.800781</td>\n",
+       "      <td>83190.0</td>\n",
+       "      <td>5.49</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>0.009170</td>\n",
+       "      <td>2021</td>\n",
+       "      <td>08</td>\n",
+       "      <td>20</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "        Date         Price          Open          High           Low     Vol.  \\\n",
+       "0 2021-08-24  48846.300781  49532.500000  49847.398438  48812.398438  59890.0   \n",
+       "1 2021-08-23  49539.699219  49255.398438  50498.800781  49038.601562  75370.0   \n",
+       "2 2021-08-22  49254.500000  48870.398438  49480.300781  48151.000000  49320.0   \n",
+       "3 2021-08-21  48875.800781  49330.000000  49719.101562  48293.500000  18200.0   \n",
+       "4 2021-08-20  49324.000000  46756.699219  49343.300781  46646.800781  83190.0   \n",
+       "\n",
+       "   Change %  MA for 50 days  MA for 200 days  Daily Return  year month day  \n",
+       "0     -1.40             NaN              NaN           NaN  2021    08  24  \n",
+       "1      0.58             NaN              NaN      0.014196  2021    08  23  \n",
+       "2      0.77             NaN              NaN     -0.005757  2021    08  22  \n",
+       "3     -0.91             NaN              NaN     -0.007689  2021    08  21  \n",
+       "4      5.49             NaN              NaN      0.009170  2021    08  20  "
+      ]
+     },
+     "execution_count": 25,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "id": "8e13c0de",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df=df.drop(['Date'],axis=1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "id": "b8f15898",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 4056 entries, 0 to 4055\n",
+      "Data columns (total 12 columns):\n",
+      " #   Column           Non-Null Count  Dtype  \n",
+      "---  ------           --------------  -----  \n",
+      " 0   Price            4056 non-null   float32\n",
+      " 1   Open             4056 non-null   float32\n",
+      " 2   High             4056 non-null   float32\n",
+      " 3   Low              4056 non-null   float32\n",
+      " 4   Vol.             4056 non-null   float32\n",
+      " 5   Change %         4056 non-null   float32\n",
+      " 6   MA for 50 days   4007 non-null   float64\n",
+      " 7   MA for 200 days  3857 non-null   float64\n",
+      " 8   Daily Return     4055 non-null   float32\n",
+      " 9   year             4056 non-null   object \n",
+      " 10  month            4056 non-null   object \n",
+      " 11  day              4056 non-null   object \n",
+      "dtypes: float32(7), float64(2), object(3)\n",
+      "memory usage: 269.5+ KB\n"
+     ]
+    }
+   ],
+   "source": [
+    "df.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "id": "1d788747",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df['year'] = df['year'].astype(int)\n",
+    "df['month'] = df['month'].astype(int)\n",
+    "df['day'] = df['day'].astype(int)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "id": "8b218e16",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Price                0\n",
+       "Open                 0\n",
+       "High                 0\n",
+       "Low                  0\n",
+       "Vol.                 0\n",
+       "Change %             0\n",
+       "MA for 50 days      49\n",
+       "MA for 200 days    199\n",
+       "Daily Return         1\n",
+       "year                 0\n",
+       "month                0\n",
+       "day                  0\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 29,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.isnull().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "id": "2b9ef043",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "4056"
+      ]
+     },
+     "execution_count": 30,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "len(df)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "id": "d285e822",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df.drop([\"MA for 50 days\",\"MA for 200 days\",\"Daily Return\"],axis=1,inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "id": "d746110f",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x = df.drop(['Change %'],axis=1)\n",
+    "y=df['Change %']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "id": "06edf01a",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Index(['Price', 'Open', 'High', 'Low', 'Vol.', 'year', 'month', 'day'], dtype='object')"
+      ]
+     },
+     "execution_count": 33,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x.keys()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 40,
+   "id": "46c0352f",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.model_selection import train_test_split"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "id": "afc02cf8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "id": "8cb3aa96",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.linear_model import LinearRegression"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 43,
+   "id": "482cec82",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "lr = LinearRegression()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "id": "405f2fcc",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "LinearRegression()"
+      ]
+     },
+     "execution_count": 44,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "lr.fit(x_train,y_train)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 60,
+   "id": "606f5c71",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pickle \n",
+    "# open a file, where you ant to store the data\n",
+    "file = open('bitcoin', 'wb')\n",
+    "\n",
+    "# dump information to that file\n",
+    "pickle.dump(lr, file)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 47,
+   "id": "c08437d0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.metrics import accuracy_score"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 54,
+   "id": "54323b8b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.linear_model import Lasso"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 55,
+   "id": "7c3a7dd8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "la = Lasso()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 56,
+   "id": "620be057",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "C:\\Users\\saira\\anaconda3\\lib\\site-packages\\sklearn\\linear_model\\_coordinate_descent.py:647: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 1.019e+05, tolerance: 2.211e+01\n",
+      "  model = cd_fast.enet_coordinate_descent(\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "Lasso()"
+      ]
+     },
+     "execution_count": 56,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "la.fit(x_train,y_train)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 61,
+   "id": "8b890038",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pickle \n",
+    "# open a file, where you ant to store the data\n",
+    "file = open('bitcoin_lasso', 'wb')\n",
+    "\n",
+    "# dump information to that file\n",
+    "pickle.dump(la, file)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 57,
+   "id": "86c1ce40",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.linear_model import Ridge"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 58,
+   "id": "b4f559c4",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ra = Ridge()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 59,
+   "id": "373e4caa",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Ridge()"
+      ]
+     },
+     "execution_count": 59,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "ra.fit(x_train,y_train)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 62,
+   "id": "016590ca",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pickle \n",
+    "# open a file, where you ant to store the data\n",
+    "file = open('bitcoin_ridge', 'wb')\n",
+    "\n",
+    "# dump information to that file\n",
+    "pickle.dump(ra, file)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "9c4cf25c",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

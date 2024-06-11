@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html style=" overflow: scroll; ">
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>BITCOIN</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  
+</head>
+
+<body>
+
+	<h1>BITCOIN PRICE PREDICTION USING MULTIPLE MACHINE LEARNING ALGORITHMS</h1>
+
+ <div class="login">
+
+	<h1><br> </h1>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('predict')}}"method="post">
+    	Price<input type="text" name="Price" placeholder="Price" required="required" />
+        Open<input type="text" name="Open" placeholder="Open" required="required" />
+         High<input type="text" name="High" placeholder="High" required="required" />
+           Low<input type="text" name="Low" placeholder="Low" required="required" />
+            Vol.<input type="text" name="Vol." placeholder="Vol." required="required" />
+              year<input type="text" name="year" placeholder="year" required="required" />
+                month<input type="text" name="month" placeholder="month" required="required" />
+                   day<input type="text" name="day" placeholder="day" required="required" />
+		
+        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+    </form>
+
+   <br>
+   <br>
+   {{ prediction_text }}
+
+ </div>
+
+
+</body>
+</html>
